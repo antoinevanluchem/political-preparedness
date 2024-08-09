@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.network.models.Election
 
 //TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel(application: Application): AndroidViewModel(application) {
+class ElectionsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _upcomingElections = MutableLiveData<List<Election>>()
     val upcomingElections: LiveData<List<Election>>
@@ -37,6 +37,7 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
     fun displayDetails(election: Election) {
         _navigateToDetails.value = election
     }
+
     fun displayDetailsComplete() {
         _navigateToDetails.value = null
     }

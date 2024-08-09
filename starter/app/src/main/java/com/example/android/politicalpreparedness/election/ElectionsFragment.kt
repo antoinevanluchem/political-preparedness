@@ -11,7 +11,7 @@ import com.example.android.politicalpreparedness.databinding.FragmentElectionBin
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 
 
-class ElectionsFragment: Fragment() {
+class ElectionsFragment : Fragment() {
 
     private val viewModel: ElectionsViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -19,26 +19,31 @@ class ElectionsFragment: Fragment() {
         }
 
         ViewModelProvider(
-            this, ElectionsViewModel.Factory(activity.application)).get(ElectionsViewModel::class.java)
+            this, ElectionsViewModel.Factory(activity.application)
+        ).get(ElectionsViewModel::class.java)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         val binding = FragmentElectionBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
-        binding.upcomingElectionsRecyclerView.adapter = ElectionListAdapter(ElectionListAdapter.OnClickListener {
-            viewModel.displayDetails(it)
-        })
+        binding.upcomingElectionsRecyclerView.adapter =
+            ElectionListAdapter(ElectionListAdapter.OnClickListener {
+                viewModel.displayDetails(it)
+            })
 
         viewModel.navigateToDetails.observe(viewLifecycleOwner) {
             if (null != it) {
-                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
+                this.findNavController().navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                        it.id,
+                        it.division
+                    )
+                )
                 viewModel.displayDetailsComplete()
             }
         }

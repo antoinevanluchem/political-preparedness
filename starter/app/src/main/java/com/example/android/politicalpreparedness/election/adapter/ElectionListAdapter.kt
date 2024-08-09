@@ -42,9 +42,7 @@ class ElectionListAdapter(private val onClickListener: OnClickListener) :
     ): ViewHolder {
         return ViewHolder(
             ElectionListItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
     }
