@@ -56,5 +56,4 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
-
 }

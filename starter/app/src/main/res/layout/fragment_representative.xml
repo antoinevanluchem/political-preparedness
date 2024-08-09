@@ -3,8 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:motion="http://schemas.android.com/tools">
 
-    <!-- TODO: Add data binding node -->
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
 
+    </data>
     <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
@@ -113,7 +117,7 @@
             app:layout_constraintVertical_bias="0" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/myRepresentativesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/default_margin"
@@ -123,6 +127,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_placeholder" />
+            app:layout_constraintTop_toBottomOf="@+id/list_placeholder"
+            app:listData="@{viewModel.myRepresentatives}"/>
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

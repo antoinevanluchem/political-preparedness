@@ -1,10 +1,19 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.representative.model.Representative
 
-class RepresentativeViewModel: ViewModel() {
+class RepresentativeViewModel(application: Application): AndroidViewModel(application) {
 
     //TODO: Establish live data for representatives and address
+    private val _myRepresentatives = MutableLiveData<List<Representative>>()
+    val myRepresentatives: LiveData<List<Representative>>
+        get() = _myRepresentatives
 
     //TODO: Create function to fetch representatives from API from a provided address
 
@@ -22,5 +31,22 @@ class RepresentativeViewModel: ViewModel() {
     //TODO: Create function get address from geo location
 
     //TODO: Create function to get address from individual fields
+
+    //
+    // Factory
+    //
+    class Factory(
+        private val application: Application
+    ) : ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(RepresentativeViewModel::class.java)) {
+                return RepresentativeViewModel(application) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
+
+
 
 }
