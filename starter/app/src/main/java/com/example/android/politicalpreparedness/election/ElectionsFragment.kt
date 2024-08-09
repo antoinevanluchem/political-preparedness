@@ -36,6 +36,11 @@ class ElectionsFragment : Fragment() {
                 viewModel.displayDetails(it)
             })
 
+        binding.savedElectionsRecyclerView.adapter =
+            ElectionListAdapter(ElectionListAdapter.OnClickListener {
+                viewModel.displayDetails(it)
+            })
+
         viewModel.navigateToDetails.observe(viewLifecycleOwner) {
             if (null != it) {
                 this.findNavController().navigate(
