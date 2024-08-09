@@ -5,34 +5,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+
 
 class ElectionsFragment: Fragment() {
 
-    // TODO: Declare ViewModel
+    private val viewModel: ElectionsViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onViewCreated()"
+        }
+
+        ViewModelProvider(
+            this, ElectionsViewModel.Factory(activity.application)).get(ElectionsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?)
     : View? {
-        val binding = ElectionsFragment.inflate(inflater)
+        val binding = FragmentElectionBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
-        setHasOptionsMenu(true)
-
-        binding.asteroidRecycler.adapter = AsteroidListAdapter(AsteroidListAdapter.OnClickListener {
+        binding.upcomingElectionsRecyclerView.adapter = ElectionListAdapter(ElectionListAdapter.OnClickListener {
             viewModel.displayDetails(it)
         })
 
-        viewModel.navigateToDetails.observe(this, Observer {
-            if ( null != it ) {
-                this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+        viewModel.navigateToDetails.observe(viewLifecycleOwner) {
+            if (null != it) {
+                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
                 viewModel.displayDetailsComplete()
             }
-        })
+        }
 
         return binding.root
     }
