@@ -4,6 +4,8 @@
     <dimen name="default_margin">8dp</dimen>
     <dimen name="headerTextSize">32sp</dimen>
     <dimen name="small_margin">4dp</dimen>
+    <dimen name="image_size">64dp</dimen>
+    <dimen name="icon_size">32dp</dimen>
 
 
     <!-- TODO: Add necessary dimension values -->s
