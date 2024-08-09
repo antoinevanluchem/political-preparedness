@@ -31,7 +31,7 @@ class DetailFragment : Fragment() {
 
         ViewModelProvider(
             this, RepresentativeViewModel.Factory(activity.application)
-        ).get(RepresentativeViewModel::class.java)
+        )[RepresentativeViewModel::class.java]
     }
 
     override fun onCreateView(

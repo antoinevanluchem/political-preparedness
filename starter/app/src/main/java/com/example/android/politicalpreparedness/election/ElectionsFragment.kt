@@ -20,7 +20,7 @@ class ElectionsFragment : Fragment() {
 
         ViewModelProvider(
             this, ElectionsViewModel.Factory(activity.application)
-        ).get(ElectionsViewModel::class.java)
+        )[ElectionsViewModel::class.java]
     }
 
     override fun onCreateView(
