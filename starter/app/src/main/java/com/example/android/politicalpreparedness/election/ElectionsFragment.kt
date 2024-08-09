@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 class ElectionsFragment: Fragment() {
 
@@ -15,16 +16,25 @@ class ElectionsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?)
     : View? {
-        // TODO: Add ViewModel values and create ViewModel
+        val binding = ElectionsFragment.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        // TODO: Add binding values
+        binding.viewModel = viewModel
 
-        // TODO: Link elections to voter info
+        setHasOptionsMenu(true)
 
-        // TODO: Initiate recycler adapters
+        binding.asteroidRecycler.adapter = AsteroidListAdapter(AsteroidListAdapter.OnClickListener {
+            viewModel.displayDetails(it)
+        })
 
-        // TODO: Populate recycler adapters
-        return null
+        viewModel.navigateToDetails.observe(this, Observer {
+            if ( null != it ) {
+                this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+                viewModel.displayDetailsComplete()
+            }
+        })
+
+        return binding.root
     }
 
     // TODO: Refresh adapters when fragment loads
