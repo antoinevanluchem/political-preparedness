@@ -11,7 +11,6 @@ fun Geocoder.getAddress(
     longitude: Double,
     onAddressFetchedCallback: (PoliticalPreparednessAddress?) -> Unit
 ) {
-
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getFromLocation(latitude, longitude, 1, object : Geocoder.GeocodeListener {
             override fun onGeocode(androidLocationAddresses: MutableList<AndroidLocationAddress>) {

@@ -14,9 +14,12 @@ import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.utils.LocationPermissionHandler
+import com.example.android.politicalpreparedness.representative.utils.LocationServicesHandler
 import com.example.android.politicalpreparedness.representative.utils.getAddress
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
@@ -39,6 +42,7 @@ class DetailFragment : Fragment() {
     lateinit var binding: FragmentRepresentativeBinding
 
     private val locationPermissionHandler = LocationPermissionHandler(this)
+    private val locationServicesHandler = LocationServicesHandler(this)
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -57,7 +61,9 @@ class DetailFragment : Fragment() {
         binding.buttonLocation.setOnClickListener {
             hideKeyboard()
             locationPermissionHandler.onPermissionGranted {
-                useMyLocation()
+                locationServicesHandler.onLocationServicesEnabled {
+                    useMyLocation()
+                }
             }
         }
 
@@ -66,17 +72,11 @@ class DetailFragment : Fragment() {
 
     @SuppressLint("MissingPermission") // This is handled by the locationPermissionHandler
     private fun useMyLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { lastLocation ->
-            if (lastLocation == null) {
-                Snackbar.make(
-                    binding.fragmentRepresentativeMotionLayout,
-                    R.string.err_fetching_location,
-                    Snackbar.LENGTH_LONG
-                ).show()
-                return@addOnSuccessListener
-            }
-
+        fusedLocationClient.getCurrentLocation(
+            Priority.PRIORITY_HIGH_ACCURACY, CancellationTokenSource().token
+        ).addOnSuccessListener { lastLocation ->
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
             geocoder.getAddress(lastLocation.latitude, lastLocation.longitude) { address ->
                 if (address == null) {
                     Snackbar.make(
@@ -89,7 +89,12 @@ class DetailFragment : Fragment() {
 
                 viewModel.setAddress(address)
             }
-
+        }.addOnFailureListener {
+            Snackbar.make(
+                binding.fragmentRepresentativeMotionLayout,
+                R.string.err_fetching_location,
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
