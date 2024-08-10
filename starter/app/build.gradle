@@ -7,6 +7,24 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+def getApiKey(service) {
+    Properties properties = new Properties()
+    File localPropertiesFile = project.rootProject.file('local.properties')
+
+    if (!localPropertiesFile.exists()) {
+        throw new GradleException("local.properties file not found.")
+    }
+
+    properties.load(localPropertiesFile.newDataInputStream())
+    String apiKey = properties.getProperty(service + "_api_key")
+
+    if (apiKey == null) {
+        throw new GradleException("api_key not found in local.properties. Please check snake_case naming convention, if you are sure you added your api key to the local.properties!")
+    }
+
+    return apiKey
+}
+
 android {
     namespace 'com.example.android.politicalpreparedness'
     compileSdk 34
@@ -17,6 +35,8 @@ android {
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
+        // Please add your API Key to the local.properties file
+        buildConfigField "String", "GOOGLE_CIVIC_API_KEY", "\"" + getApiKey("google_civic") + "\""
     }
     buildTypes {
         release {
