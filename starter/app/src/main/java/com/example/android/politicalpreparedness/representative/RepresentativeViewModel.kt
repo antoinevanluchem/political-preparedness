@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
 
 class RepresentativeViewModel(application: Application): AndroidViewModel(application) {
@@ -14,6 +15,14 @@ class RepresentativeViewModel(application: Application): AndroidViewModel(applic
     private val _myRepresentatives = MutableLiveData<List<Representative>>()
     val myRepresentatives: LiveData<List<Representative>>
         get() = _myRepresentatives
+
+    private val _address = MutableLiveData<Address>()
+    val address: LiveData<Address>
+        get() = _address
+
+    fun setAddress(address: Address) {
+        _address.value = address
+    }
 
     //TODO: Create function to fetch representatives from API from a provided address
 
