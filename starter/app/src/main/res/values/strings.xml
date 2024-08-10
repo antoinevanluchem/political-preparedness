@@ -15,6 +15,9 @@
     <string name="settings">Settings</string>
     <string name="location_permission_denied_explanation">You need to grant location permission in order to use your location.</string>
 
+    <string name="err_fetching_location">Something went wrong while fetching your location.</string>
+    <string name="err_fetching_address">Something went wrong while fetching your address.</string>
+
 
     <!-- TODO: Add necessary string values -->
 

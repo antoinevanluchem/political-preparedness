@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.utils.LocationPermissionHandler
 import com.example.android.politicalpreparedness.representative.utils.getAddress
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
 class DetailFragment : Fragment() {
@@ -66,12 +68,22 @@ class DetailFragment : Fragment() {
     private fun useMyLocation() {
         fusedLocationClient.lastLocation.addOnSuccessListener { lastLocation ->
             if (lastLocation == null) {
+                Snackbar.make(
+                    binding.fragmentRepresentativeMotionLayout,
+                    R.string.err_fetching_location,
+                    Snackbar.LENGTH_LONG
+                ).show()
                 return@addOnSuccessListener
             }
 
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
             geocoder.getAddress(lastLocation.latitude, lastLocation.longitude) { address ->
                 if (address == null) {
+                    Snackbar.make(
+                        binding.fragmentRepresentativeMotionLayout,
+                        R.string.err_fetching_address,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                     return@getAddress
                 }
 
