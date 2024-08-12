@@ -24,8 +24,6 @@ class RepresentativeListAdapter :
 
         fun bind(item: Representative) {
             binding.representative = item
-            // TODO-Antoine: set the representative phote
-//        binding.representativeOfficialImage.setImageResource(R.drawable.ic_profile)
 
             //TODO: Show social links ** Hint: Use provided helper methods
             //TODO: Show www link ** Hint: Use provided helper methods

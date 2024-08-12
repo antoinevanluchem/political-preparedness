@@ -5,7 +5,6 @@ import android.os.Build
 import android.location.Address as AndroidLocationAddress
 import com.example.android.politicalpreparedness.network.models.Address as PoliticalPreparednessAddress
 
-@Suppress("DEPRECATION")
 fun Geocoder.getAddress(
     latitude: Double,
     longitude: Double,
@@ -32,7 +31,6 @@ fun Geocoder.getAddress(
             onAddressFetchedCallback(null)
         }
     }
-
 }
 
 private fun MutableList<AndroidLocationAddress>.toPoliticalPreparednessAddress(): List<PoliticalPreparednessAddress> {

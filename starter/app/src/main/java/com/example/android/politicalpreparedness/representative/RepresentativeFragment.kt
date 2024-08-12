@@ -105,5 +105,4 @@ class DetailFragment : Fragment() {
             binding.fragmentRepresentativeMotionLayout, resId, Snackbar.LENGTH_LONG
         ).show()
     }
-
 }
