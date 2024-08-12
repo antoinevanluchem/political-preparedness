@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.repository.ElectionRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class VoterInfoViewModel(
@@ -30,7 +28,7 @@ class VoterInfoViewModel(
 
     init {
         fetchVoterInfo()
-        setUpIsFollowingElection()
+        refreshIsFollowingElection()
     }
 
     private fun fetchVoterInfo() {
@@ -43,9 +41,9 @@ class VoterInfoViewModel(
         }
     }
 
-    private fun setUpIsFollowingElection() {
+    private fun refreshIsFollowingElection() {
         viewModelScope.launch {
-                _isFollowingElection.value = electionRepository.isElectionFollowed(electionId)
+            _isFollowingElection.value = electionRepository.isElectionFollowed(electionId)
         }
     }
 
@@ -58,6 +56,7 @@ class VoterInfoViewModel(
                     electionRepository.followElection(it.election)
                 }
             }
+            refreshIsFollowingElection()
         }
     }
 

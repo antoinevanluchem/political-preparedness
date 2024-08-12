@@ -90,10 +90,11 @@
         <Button
             android:id="@+id/followElectionButton"
             style="@style/ButtonStyle"
-            android:text="@string/follow_ellection"
+            tools:text="@string/follow_election"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            isFollowingElection="@{viewModel.isFollowingElection}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
