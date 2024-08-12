@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.RepresentativeListItemBinding
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
@@ -24,6 +25,7 @@ class RepresentativeListAdapter :
 
         fun bind(item: Representative) {
             binding.representative = item
+            binding.representativeOfficialImage.setImageResource(R.drawable.loading_img)
 
             //TODO: Show social links ** Hint: Use provided helper methods
             //TODO: Show www link ** Hint: Use provided helper methods
@@ -81,7 +83,6 @@ class RepresentativeListAdapter :
         }
 
         override fun areContentsTheSame(oldItem: Representative, newItem: Representative): Boolean {
-            // TODO-Antoine: Double check if this is correct
             return oldItem == newItem
         }
     }

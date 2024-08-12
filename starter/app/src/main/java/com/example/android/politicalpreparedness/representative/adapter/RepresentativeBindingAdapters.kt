@@ -7,26 +7,21 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.representative.model.Representative
-import timber.log.Timber
 
 @BindingAdapter("profileImage")
 fun ImageView.fetchImage(src: String?) {
-    src?.let {
-        val uri = src.toUri().buildUpon().scheme("https").build()
-        val requestOptions = RequestOptions()
-            .circleCrop()
-            .placeholder(R.drawable.ic_profile)
-            .error(R.drawable.ic_broken_image)
-            .dontAnimate()
-        Glide.with(this.context)
-            .load(uri)
-            .apply(requestOptions)
-            .into(this)
+    if (src == null) {
+        setImageResource(R.drawable.ic_profile)
+        return
     }
+
+    val uri = src.toUri().buildUpon().scheme("https").build()
+    val requestOptions = RequestOptions().circleCrop().placeholder(R.drawable.loading_img)
+        .error(R.drawable.ic_broken_image)
+    Glide.with(this.context).load(uri).apply(requestOptions).into(this)
 }
 
 @BindingAdapter("stateValue")

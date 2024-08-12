@@ -4,7 +4,6 @@
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="representative"
             type="com.example.android.politicalpreparedness.representative.model.Representative" />

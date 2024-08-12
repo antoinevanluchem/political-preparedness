@@ -11,6 +11,7 @@ import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RepresentativeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -40,6 +41,11 @@ class RepresentativeViewModel(application: Application) : AndroidViewModel(appli
             _myRepresentatives.value = representativeResponse.offices.flatMap { office ->
                 office.getRepresentatives(representativeResponse.officials)
             }
+
+            val representativesWithoutPhoto = _myRepresentatives.value!!
+                .filter { it.official.photoUrl == null }
+                .map { it.official.name }
+            Timber.i("Following representatives do not have a photo: $representativesWithoutPhoto")
         }
     }
 
