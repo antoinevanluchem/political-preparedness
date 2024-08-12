@@ -53,7 +53,4 @@ class ElectionsFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    // TODO: Refresh adapters when fragment loads
-}
+    } }

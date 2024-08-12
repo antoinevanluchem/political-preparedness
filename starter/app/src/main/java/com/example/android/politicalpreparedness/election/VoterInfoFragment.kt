@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import timber.log.Timber
 
 class VoterInfoFragment : Fragment() {
 
@@ -36,6 +37,10 @@ class VoterInfoFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        binding.followElectionButton.setOnClickListener {
+            Timber.i("Button clicked")
+        }
+
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
         */
@@ -44,7 +49,7 @@ class VoterInfoFragment : Fragment() {
 
         // TODO: Handle save button UI state
         // TODO: cont'd Handle save button clicks
-        return null
+        return binding.root
     }
 
     // TODO: Create method to load URL intents

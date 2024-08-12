@@ -86,7 +86,7 @@
             tools:text="Address"/>
 
         <Button
-            android:id="@+id/followElection"
+            android:id="@+id/followElectionButton"
             style="@style/ButtonStyle"
             android:text="@string/follow_ellection"
             app:layout_constraintBottom_toBottomOf="parent"

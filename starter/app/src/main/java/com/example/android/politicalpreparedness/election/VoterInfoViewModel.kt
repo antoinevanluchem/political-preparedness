@@ -19,7 +19,6 @@ class VoterInfoViewModel(
 ) : AndroidViewModel(application) {
 
     private val _voterInfo = MutableLiveData<VoterInfoResponse>()
-
     val voterInfo: LiveData<VoterInfoResponse>
         get() = _voterInfo
 
@@ -33,15 +32,12 @@ class VoterInfoViewModel(
         viewModelScope.launch {
             try {
                 _voterInfo.value = electionRepository.fetchVoterInfo(electionId, electionName)
+                Timber.i("Successfully fetched voter info: ${_voterInfo.value!!.election.electionDay}")
             } catch (e: Exception) {
                 Timber.e("Something went wrong while fetching the voter info: $e")
             }
         }
     }
-
-    //TODO: Add live data to hold voter info
-
-    //TODO: Add var and methods to populate voter info
 
     //TODO: Add var and methods to support loading URLs
 
