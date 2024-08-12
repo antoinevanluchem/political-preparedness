@@ -19,7 +19,7 @@
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_marginStart="@dimen/small_margin"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/loading_img"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -90,6 +90,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/facebookIcon"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            tool:visibility="visible"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
@@ -104,6 +106,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/websiteIcon"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            tool:visibility="visible"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
@@ -119,6 +123,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            tool:visibility="visible"
             app:layout_constraintVertical_bias="1.0" />
 
 

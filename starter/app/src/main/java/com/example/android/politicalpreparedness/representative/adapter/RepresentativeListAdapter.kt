@@ -5,6 +5,7 @@ import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
@@ -27,15 +28,20 @@ class RepresentativeListAdapter :
             binding.representative = item
             binding.representativeOfficialImage.setImageResource(R.drawable.loading_img)
 
-            //TODO: Show social links ** Hint: Use provided helper methods
-            //TODO: Show www link ** Hint: Use provided helper methods
+            handleSocialLinks(item.official.channels)
+            handleWWWLinks(item.official.urls)
 
             binding.executePendingBindings()
         }
 
-        //TODO: Add companion object to inflate ViewHolder (from)
+        //
+        // Socials
+        //
+        private fun handleSocialLinks(channels: List<Channel>?) {
+            if (channels == null) {
+                return
+            }
 
-        private fun showSocialLinks(channels: List<Channel>) {
             val facebookUrl = getFacebookUrl(channels)
             if (!facebookUrl.isNullOrBlank()) {
                 enableLink(binding.facebookIcon, facebookUrl)
@@ -46,12 +52,6 @@ class RepresentativeListAdapter :
                 enableLink(binding.twitterIcon, twitterUrl)
             }
         }
-
-        private fun showWWWLinks(urls: List<String>) {
-            // TODO-Antoine: fix this
-//        enableLink(binding.wwwIcon, urls.first())
-        }
-
         private fun getFacebookUrl(channels: List<Channel>): String? {
             return channels.filter { channel -> channel.type == "Facebook" }
                 .map { channel -> "https://www.facebook.com/${channel.id}" }.firstOrNull()
@@ -62,6 +62,21 @@ class RepresentativeListAdapter :
                 .map { channel -> "https://www.twitter.com/${channel.id}" }.firstOrNull()
         }
 
+
+        //
+        // Www
+        //
+        private fun handleWWWLinks(urls: List<String>?) {
+            if (urls.isNullOrEmpty()) {
+                return
+            }
+
+            enableLink(binding.websiteIcon, urls.first())
+        }
+
+        //
+        // Utils for Links
+        //
         private fun enableLink(view: ImageView, url: String) {
             view.visibility = View.VISIBLE
             view.setOnClickListener { setIntent(url) }
