@@ -30,14 +30,14 @@ class VoterInfoFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?)
-    : View? {
+    : View {
         val binding = FragmentVoterInfoBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
         binding.followElectionButton.setOnClickListener {
-            Timber.i("Button clicked")
+            viewModel.onFollowElectionClicked()
         }
 
         /**
