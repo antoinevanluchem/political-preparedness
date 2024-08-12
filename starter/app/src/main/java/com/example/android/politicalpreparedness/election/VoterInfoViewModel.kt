@@ -45,9 +45,7 @@ class VoterInfoViewModel(
 
     private fun setUpIsFollowingElection() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
                 _isFollowingElection.value = electionRepository.isElectionFollowed(electionId)
-            }
         }
     }
 

@@ -5,6 +5,8 @@ import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ElectionRepository(application: Context) {
     private val electionDao = ElectionDatabase.getInstance(application).electionDao
@@ -13,16 +15,22 @@ class ElectionRepository(application: Context) {
     // Election
     // - abstract away the follow/unfollow logic, currently an election is followed if its saved in the db,
     // this can change in the future
-    fun isElectionFollowed(id: Int): Boolean {
-        return electionDao.getElection(id)?.id == id
+    suspend fun isElectionFollowed(id: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            electionDao.getElection(id)?.id == id
+        }
     }
 
     suspend fun followElection(election: Election) {
-        electionDao.insert(election)
+        return withContext(Dispatchers.IO) {
+            electionDao.insert(election)
+        }
     }
 
     suspend fun unfollowElection(id: Int) {
-        return electionDao.deleteElection(id)
+        return withContext(Dispatchers.IO) {
+            electionDao.deleteElection(id)
+        }
     }
 
 
