@@ -12,7 +12,7 @@ import com.example.android.politicalpreparedness.repository.RepresentativeReposi
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
 
-class RepresentativeViewModel(application: Application): AndroidViewModel(application) {
+class RepresentativeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val representativeRepository: RepresentativeRepository = RepresentativeRepository()
 
@@ -28,7 +28,6 @@ class RepresentativeViewModel(application: Application): AndroidViewModel(applic
         _address.value = address
 
         fetchRepresentatives(address)
-
     }
 
     fun onFindMyRepresentativesButtonClicked() {
@@ -37,23 +36,12 @@ class RepresentativeViewModel(application: Application): AndroidViewModel(applic
 
     private fun fetchRepresentatives(address: Address) {
         viewModelScope.launch {
-            representativeRepository.fetchRepresentatives(address)
+            val representativeResponse = representativeRepository.fetchRepresentatives(address)
+            _myRepresentatives.value = representativeResponse.offices.flatMap { office ->
+                office.getRepresentatives(representativeResponse.officials)
+            }
         }
     }
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
-
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
-
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
-
-     */
-
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
 
     //
     // Factory
@@ -69,7 +57,4 @@ class RepresentativeViewModel(application: Application): AndroidViewModel(applic
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
-
-
-
 }
