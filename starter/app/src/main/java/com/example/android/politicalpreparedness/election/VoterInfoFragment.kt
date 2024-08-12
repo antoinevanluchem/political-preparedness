@@ -12,13 +12,13 @@ import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBi
 
 class VoterInfoFragment : Fragment() {
 
-    private val electionId = VoterInfoFragmentArgs.fromBundle(requireArguments()).argElectionId
-    private val electionName = VoterInfoFragmentArgs.fromBundle(requireArguments()).argEllectionName
-
     private val viewModel: VoterInfoViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onViewCreated()"
         }
+
+        val electionId = VoterInfoFragmentArgs.fromBundle(requireArguments()).argElectionId
+        val electionName = VoterInfoFragmentArgs.fromBundle(requireArguments()).argEllectionName
 
         ViewModelProvider(
             this, VoterInfoViewModel.Factory(activity.application, electionId, electionName)
