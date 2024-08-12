@@ -72,6 +72,9 @@ class VoterInfoFragment : Fragment() {
         }
     }
 
+    //
+    // Clickable Links
+    //
     private fun enableClickableLinks() {
         val electionAdministrationBody =
             viewModel.voterInfo.value!!.state!!.first().electionAdministrationBody
@@ -98,12 +101,9 @@ class VoterInfoFragment : Fragment() {
         requireContext().startActivity(intent)
     }
 
-    private fun showSnackbar(resId: Int) {
-        Snackbar.make(
-            binding.voterInfoLayout, resId, Snackbar.LENGTH_LONG
-        ).show()
-    }
-
+    //
+    // Correspondence Address
+    //
     private fun setCorrespondenceAddress() {
         val correspondenceAddress =
             viewModel.voterInfo.value!!.state!!.first().electionAdministrationBody.correspondenceAddress
@@ -111,5 +111,14 @@ class VoterInfoFragment : Fragment() {
             binding.addressGroup.visibility = VISIBLE
             binding.address.text = correspondenceAddress.toFormattedString()
         }
+    }
+
+    //
+    // Utils
+    //
+    private fun showSnackbar(resId: Int) {
+        Snackbar.make(
+            binding.voterInfoLayout, resId, Snackbar.LENGTH_LONG
+        ).show()
     }
 }

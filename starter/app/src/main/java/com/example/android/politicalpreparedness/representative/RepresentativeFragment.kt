@@ -24,11 +24,6 @@ import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
 class DetailFragment : Fragment() {
-
-    companion object {
-        //TODO: Add Constant for Location request
-    }
-
     private val viewModel: RepresentativeViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onViewCreated()"
@@ -67,9 +62,16 @@ class DetailFragment : Fragment() {
             }
         }
 
+        binding.buttonSearch.setOnClickListener {
+            viewModel.onFindMyRepresentativesButtonClicked()
+        }
+
         return binding.root
     }
 
+    //
+    // Location
+    //
     @SuppressLint("MissingPermission") // This is handled by the locationPermissionHandler
     private fun useMyLocation() {
         fusedLocationClient.getCurrentLocation(
@@ -79,28 +81,29 @@ class DetailFragment : Fragment() {
 
             geocoder.getAddress(lastLocation.latitude, lastLocation.longitude) { address ->
                 if (address == null) {
-                    Snackbar.make(
-                        binding.fragmentRepresentativeMotionLayout,
-                        R.string.err_fetching_address,
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    showSnackbar(R.string.err_fetching_address)
                     return@getAddress
                 }
 
                 viewModel.setAddress(address)
             }
         }.addOnFailureListener {
-            Snackbar.make(
-                binding.fragmentRepresentativeMotionLayout,
-                R.string.err_fetching_location,
-                Snackbar.LENGTH_LONG
-            ).show()
+            showSnackbar(R.string.err_fetching_location)
         }
     }
 
+    //
+    // Utils
+    //
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+    }
+
+    private fun showSnackbar(resId: Int) {
+        Snackbar.make(
+            binding.fragmentRepresentativeMotionLayout, resId, Snackbar.LENGTH_LONG
+        ).show()
     }
 
 }
