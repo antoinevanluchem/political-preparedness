@@ -28,6 +28,7 @@ class RepresentativeListAdapter :
             binding.representative = item
             binding.representativeOfficialImage.setImageResource(R.drawable.loading_img)
 
+            resetVisibility()
             handleSocialLinks(item.official.channels)
             handleWWWLinks(item.official.urls)
 
@@ -87,6 +88,12 @@ class RepresentativeListAdapter :
             val intent = Intent(ACTION_VIEW, uri)
             itemView.context.startActivity(intent)
         }
+
+        private fun resetVisibility() {
+            binding.facebookIcon.visibility = GONE
+            binding.twitterIcon.visibility = GONE
+            binding.websiteIcon.visibility = GONE
+        }
     }
 
     //
@@ -118,5 +125,3 @@ class RepresentativeListAdapter :
         holder.bind(item)
     }
 }
-
-//TODO: Create RepresentativeListener
