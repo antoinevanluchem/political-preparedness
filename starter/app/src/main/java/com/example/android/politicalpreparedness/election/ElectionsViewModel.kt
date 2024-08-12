@@ -6,9 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.repository.ElectionRepository
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-//TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _upcomingElections = MutableLiveData<List<Election>>()
@@ -18,6 +21,22 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
     private val _savedElections = MutableLiveData<List<Election>>()
     val savedElections: LiveData<List<Election>>
         get() = _savedElections
+
+    private val electionRepository = ElectionRepository(application)
+
+    init {
+        fetchUpcomingElections()
+    }
+
+    private fun fetchUpcomingElections() {
+        viewModelScope.launch {
+            try {
+                _upcomingElections.value = electionRepository.fetchUpcomingElections()
+            } catch (e: Exception) {
+                Timber.e("Something went wrong while fetching the upcoming elections: $e")
+            }
+        }
+    }
 
     //TODO: Create live data val for upcoming elections
 

@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.network
 
+import com.example.android.politicalpreparedness.network.jsonadapter.DateAdapter
 import com.example.android.politicalpreparedness.network.jsonadapter.ElectionAdapter
 import com.example.android.politicalpreparedness.network.models.ElectionResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -11,7 +12,7 @@ import retrofit2.http.GET
 
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
-private val moshi = Moshi.Builder().add(ElectionAdapter()).add(KotlinJsonAdapterFactory()).build()
+private val moshi = Moshi.Builder().add(DateAdapter()).add(ElectionAdapter()).add(KotlinJsonAdapterFactory()).build()
 
 private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(CivicsHttpClient.getClient())
