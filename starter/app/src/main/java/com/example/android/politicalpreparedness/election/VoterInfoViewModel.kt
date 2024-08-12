@@ -32,7 +32,6 @@ class VoterInfoViewModel(
         viewModelScope.launch {
             try {
                 _voterInfo.value = electionRepository.fetchVoterInfo(electionId, electionName)
-                Timber.i("Successfully fetched voter info: ${_voterInfo.value!!.election.electionDay}")
             } catch (e: Exception) {
                 Timber.e("Something went wrong while fetching the voter info: $e")
             }

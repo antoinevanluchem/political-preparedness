@@ -18,11 +18,13 @@
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
+            app:layout_constraintTop_toTopOf="parent"
             app:title="@{viewModel.voterInfo.election.name}"
-            tools:title="Some Dummy Title"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:titleTextColor="@color/white"
+            tools:title="Some Dummy Title" />
 
         <TextView
             android:id="@+id/election_date"

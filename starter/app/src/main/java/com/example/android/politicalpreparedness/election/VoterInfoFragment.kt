@@ -26,7 +26,6 @@ class VoterInfoFragment : Fragment() {
         )[VoterInfoViewModel::class.java]
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
