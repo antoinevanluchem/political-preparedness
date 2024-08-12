@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 import com.example.android.politicalpreparedness.network.models.State
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 class VoterInfoFragment : Fragment() {
 
@@ -44,14 +47,21 @@ class VoterInfoFragment : Fragment() {
             viewModel.onFollowElectionClicked()
         }
 
-        enableClickableLinks()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.voterInfo.observe(viewLifecycleOwner) {
+            if (it != null) {
+                enableClickableLinks()
+            }
+        }
     }
 
     private fun enableClickableLinks() {
         if (viewModel.voterInfo.value == null) {
-            showSnackbar(R.string.err_no_voter_info)
+            Timber.e("Not possible to enable the clickable links, because the voterInfo==null!")
             return
         }
 
@@ -69,17 +79,18 @@ class VoterInfoFragment : Fragment() {
         val electionAdministrationBody = voterInfo.state.first().electionAdministrationBody
 
         if (electionAdministrationBody.electionInfoUrl == null) {
-            showSnackbar(R.string.cannot_get_election_info_url)
+            Timber.e("Not showing stateLocations, because electionAdministrationBody.electionInfoUrl == null")
             return
         }
+        binding.stateLocations.visibility = VISIBLE
         binding.stateLocations.setOnClickListener { setIntent(electionAdministrationBody.electionInfoUrl) }
 
 
-
         if (electionAdministrationBody.ballotInfoUrl == null) {
-            showSnackbar(R.string.cannot_get_ballot_info_url)
+            Timber.e("Not showing stateBallot, because electionAdministrationBody.electionInfoUrl == null")
             return
         }
+        binding.stateBallot.visibility = VISIBLE
         binding.stateBallot.setOnClickListener { setIntent(electionAdministrationBody.ballotInfoUrl) }
     }
 

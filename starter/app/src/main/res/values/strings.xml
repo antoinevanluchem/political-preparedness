@@ -27,8 +27,7 @@
     <string name="something_went_wrong">Something went wrong. Please try again later.</string>
     <string name="cannot_get_election_info_url">We are unable to get the voting locations weblink.</string>
     <string name="cannot_get_ballot_info_url">We are unable to get the ballot information weblink.</string>
-
-
+    <string name="ballot_information">Ballot Information</string>
 
 
     <!-- TODO: Add necessary string values -->

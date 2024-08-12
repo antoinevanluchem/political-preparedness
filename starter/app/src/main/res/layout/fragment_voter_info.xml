@@ -50,6 +50,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toStartOf="@id/election_date"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:text="@string/voting_locations"/>
 
         <TextView
@@ -58,7 +60,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_locations"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            android:text="Ballot Information"/>
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:text="@string/ballot_information"/>
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/address_group"
