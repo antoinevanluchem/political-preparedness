@@ -17,6 +17,7 @@ buildscript {
         version_play_services_location = "21.3.0"
         version_room = "2.6.1"
         version_timber = "5.0.1"
+        picasso_version="2.5.2"
     }
 
     repositories {

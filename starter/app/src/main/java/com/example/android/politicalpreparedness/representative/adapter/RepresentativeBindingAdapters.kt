@@ -6,14 +6,24 @@ import android.widget.Spinner
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.representative.model.Representative
+import com.squareup.picasso.Picasso
 
 @BindingAdapter("profileImage")
-fun fetchImage(view: ImageView, src: String?) {
-    src?.let {
-        val uri = src.toUri().buildUpon().scheme("https").build()
-        //TODO: Add Glide call to load image and circle crop - user ic_profile as a placeholder and for errors.
+fun fetchImage(imageView: ImageView, src: String?) {
+    val context = imageView.context
+
+    if (src == null) {
+        imageView.apply {
+            setImageResource(R.drawable.ic_profile)
+        }
+        return
     }
+
+    Picasso.with(context).load(src).placeholder(R.drawable.ic_profile)
+        .error(R.drawable.ic_broken_image).fit().centerCrop()
+        .into(imageView)
 }
 
 @BindingAdapter("stateValue")
@@ -28,7 +38,7 @@ fun Spinner.setNewValue(value: String?) {
     }
 }
 
-inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T>{
+inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T> {
     return adapter as ArrayAdapter<T>
 }
 
