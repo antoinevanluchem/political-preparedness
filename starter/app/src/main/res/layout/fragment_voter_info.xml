@@ -37,18 +37,21 @@
             tools:text="12 November 2055" />
 
         <TextView
-            android:id="@+id/state_header"
+            android:id="@+id/election_information_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/election_date"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/election_information"
+            android:textSize="15sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            tools:text="Some State Header"/>
+            app:layout_constraintTop_toBottomOf="@id/election_date" />
 
         <TextView
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/state_header"
+            app:layout_constraintTop_toBottomOf="@id/election_information_text_view"
             app:layout_constraintStart_toStartOf="@id/election_date"
             android:visibility="gone"
             tools:visibility="visible"
@@ -70,14 +73,19 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="state_correspondence_header,address" />
 
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_correspondence_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_ballot"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            tools:text="State Correspondence Header"/>
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/correspondence_address"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
 
         <!-- TODO: Add data binding -->
         <TextView
@@ -86,6 +94,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date"
+            android:visibility="gone"
+            tools:visibility="visible"
             tools:text="Address"/>
 
         <Button
