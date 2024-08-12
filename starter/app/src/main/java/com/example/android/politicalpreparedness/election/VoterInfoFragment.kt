@@ -54,29 +54,30 @@ class VoterInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.voterInfo.observe(viewLifecycleOwner) {
             if (it != null) {
+                if (viewModel.voterInfo.value == null) {
+                    Timber.e("Not possible to enable the clickable links, because the voterInfo==null!")
+                    return@observe
+                }
+
+                val voterInfo = viewModel.voterInfo.value!!
+                if (voterInfo.state == null) {
+                    showSnackbar(R.string.err_no_state)
+                    return@observe
+                }
+
+                if (voterInfo.state.isEmpty()) {
+                    showSnackbar(R.string.something_went_wrong)
+                    return@observe
+                }
+
                 enableClickableLinks()
+                setCorrespondenceAddress()
             }
         }
     }
 
     private fun enableClickableLinks() {
-        if (viewModel.voterInfo.value == null) {
-            Timber.e("Not possible to enable the clickable links, because the voterInfo==null!")
-            return
-        }
-
-        val voterInfo = viewModel.voterInfo.value!!
-        if (voterInfo.state == null) {
-            showSnackbar(R.string.err_no_state)
-            return
-        }
-
-        if (voterInfo.state.isEmpty()) {
-            showSnackbar(R.string.something_went_wrong)
-            return
-        }
-
-        val electionAdministrationBody = voterInfo.state.first().electionAdministrationBody
+        val electionAdministrationBody = viewModel.voterInfo.value!!.state!!.first().electionAdministrationBody
 
         if (electionAdministrationBody.electionInfoUrl == null) {
             Timber.e("Not showing stateLocations, because electionAdministrationBody.electionInfoUrl == null")
@@ -106,5 +107,11 @@ class VoterInfoFragment : Fragment() {
         ).show()
     }
 
-    // TODO: Create method to load URL intents
+    private fun setCorrespondenceAddress() {
+        val correspondenceAddress = viewModel.voterInfo.value!!.state!!.first().electionAdministrationBody.correspondenceAddress
+        if (correspondenceAddress != null) {
+            binding.addressGroup.visibility = VISIBLE
+            binding.address.text = correspondenceAddress.toFormattedString()
+        }
+    }
 }

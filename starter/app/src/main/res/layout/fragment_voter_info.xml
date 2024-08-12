@@ -71,6 +71,8 @@
             android:id="@+id/address_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:constraint_referenced_ids="state_correspondence_header,address" />
 
         <TextView
@@ -83,19 +85,14 @@
             android:text="@string/correspondence_address"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:visibility="gone"
-            tools:visibility="visible"
             />
 
-        <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            android:visibility="gone"
-            tools:visibility="visible"
             tools:text="Address"/>
 
         <Button
