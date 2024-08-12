@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import timber.log.Timber
 
 
 class ElectionsFragment : Fragment() {
@@ -30,6 +31,8 @@ class ElectionsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
+
+        viewModel.refreshElections()
 
         binding.upcomingElectionsRecyclerView.adapter =
             ElectionListAdapter(ElectionListAdapter.OnClickListener {

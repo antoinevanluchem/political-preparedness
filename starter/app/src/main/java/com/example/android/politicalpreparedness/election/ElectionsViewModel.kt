@@ -3,6 +3,7 @@ package com.example.android.politicalpreparedness.election
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,15 +19,27 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
     val upcomingElections: LiveData<List<Election>>
         get() = _upcomingElections
 
-    private val _followedElections = MutableLiveData<List<Election>>()
+    private val _followedElections = MediatorLiveData<List<Election>>()
     val followedElections: LiveData<List<Election>>
         get() = _followedElections
 
     private val electionRepository = ElectionRepository(application)
 
     init {
+        refreshElections()
+        setUpFollowedElections()
+    }
+
+    private fun setUpFollowedElections() {
+        viewModelScope.launch {
+            _followedElections.addSource(electionRepository.fetchFollowedElections()) {
+                _followedElections.value = it
+            }
+        }
+    }
+
+    fun refreshElections() {
         fetchUpcomingElections()
-        fetchFollowedElections()
     }
 
     private fun fetchUpcomingElections() {
@@ -36,12 +49,6 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
             } catch (e: Exception) {
                 Timber.e("Something went wrong while fetching the upcoming elections: $e")
             }
-        }
-    }
-
-    private fun fetchFollowedElections() {
-        viewModelScope.launch {
-            electionRepository.fetchFollowedElections()
         }
     }
 
