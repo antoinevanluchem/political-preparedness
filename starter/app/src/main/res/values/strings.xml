@@ -18,6 +18,7 @@
 
     <string name="err_fetching_location">Something went wrong while fetching your location.</string>
     <string name="err_fetching_address">Something went wrong while fetching your address.</string>
+    <string name="follow_ellection">Follow Ellection</string>
 
 
     <!-- TODO: Add necessary string values -->

@@ -5,16 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 
 class VoterInfoFragment : Fragment() {
+
+    private val viewModel: VoterInfoViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onViewCreated()"
+        }
+
+        ViewModelProvider(
+            this, VoterInfoViewModel.Factory(ElectionDatabase.getInstance(activity).electionDao)
+        )[VoterInfoViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?)
     : View? {
-
-        // TODO: Add ViewModel values and create ViewModel
 
         // TODO: Add binding values
 
