@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/voter_info_layout"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
@@ -43,25 +44,21 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             tools:text="Some State Header"/>
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            tools:text="Some State Locations"/>
+            android:text="@string/voting_locations"/>
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_locations"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            tools:text="Some State Ballot"/>
+            android:text="Ballot Information"/>
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/address_group"

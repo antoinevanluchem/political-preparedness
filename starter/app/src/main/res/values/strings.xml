@@ -20,6 +20,15 @@
     <string name="err_fetching_address">Something went wrong while fetching your address.</string>
     <string name="follow_election">Follow Election</string>
     <string name="unfollow_election">Unfollow Election</string>
+    <string name="voting_locations">Voting Locations</string>
+
+    <string name="err_no_voter_info">Something went wrong while fetching the voter information.</string>
+    <string name="err_no_state">Your state could not be determined.</string>
+    <string name="something_went_wrong">Something went wrong. Please try again later.</string>
+    <string name="cannot_get_election_info_url">We are unable to get the voting locations weblink.</string>
+    <string name="cannot_get_ballot_info_url">We are unable to get the ballot information weblink.</string>
+
+
 
 
     <!-- TODO: Add necessary string values -->

@@ -26,28 +26,24 @@ class ElectionsViewModel(application: Application) : AndroidViewModel(applicatio
     private val electionRepository = ElectionRepository(application)
 
     init {
-        refreshElections()
+        fetchUpcomingElections()
         setUpFollowedElections()
+    }
+
+    fun fetchUpcomingElections() {
+        viewModelScope.launch {
+            try {
+                _upcomingElections.value = electionRepository.fetchUpcomingElections()
+            } catch (e: Exception) {
+                Timber.e("Something went wrong while fetching the upcoming elections: $e")
+            }
+        }
     }
 
     private fun setUpFollowedElections() {
         viewModelScope.launch {
             _followedElections.addSource(electionRepository.fetchFollowedElections()) {
                 _followedElections.value = it
-            }
-        }
-    }
-
-    fun refreshElections() {
-        fetchUpcomingElections()
-    }
-
-    private fun fetchUpcomingElections() {
-        viewModelScope.launch {
-            try {
-                _upcomingElections.value = electionRepository.fetchUpcomingElections()
-            } catch (e: Exception) {
-                Timber.e("Something went wrong while fetching the upcoming elections: $e")
             }
         }
     }
