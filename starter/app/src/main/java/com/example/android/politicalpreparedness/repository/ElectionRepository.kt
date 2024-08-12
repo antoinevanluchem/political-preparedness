@@ -33,7 +33,6 @@ class ElectionRepository(application: Context) {
         }
     }
 
-
     //
     // Fetching
     //
@@ -47,5 +46,11 @@ class ElectionRepository(application: Context) {
                 "electionId" to electionId.toString(), "address" to electionName
             )
         )
+    }
+
+    suspend fun fetchFollowedElections() {
+        return withContext(Dispatchers.IO) {
+            electionDao.getAllElections()
+        }
     }
 }

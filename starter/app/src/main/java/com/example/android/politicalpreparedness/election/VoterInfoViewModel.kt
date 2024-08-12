@@ -59,11 +59,7 @@ class VoterInfoViewModel(
             refreshIsFollowingElection()
         }
     }
-
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
-
+    
     //
     // Factory
     //
