@@ -37,15 +37,19 @@ class RepresentativeViewModel(application: Application) : AndroidViewModel(appli
 
     private fun fetchRepresentatives(address: Address) {
         viewModelScope.launch {
-            val representativeResponse = representativeRepository.fetchRepresentatives(address)
-            _myRepresentatives.value = representativeResponse.offices.flatMap { office ->
-                office.getRepresentatives(representativeResponse.officials)
-            }
+            try {
+                val representativeResponse = representativeRepository.fetchRepresentatives(address)
+                _myRepresentatives.value = representativeResponse.offices.flatMap { office ->
+                    office.getRepresentatives(representativeResponse.officials)
+                }
 
-            val representativesWithoutPhoto = _myRepresentatives.value!!
-                .filter { it.official.photoUrl == null }
-                .map { it.official.name }
-            Timber.i("Following representatives do not have a photo: $representativesWithoutPhoto")
+                val representativesWithoutPhoto =
+                    _myRepresentatives.value!!.filter { it.official.photoUrl == null }
+                        .map { it.official.name }
+                Timber.i("Following representatives do not have a photo: $representativesWithoutPhoto")
+            } catch (e: Exception) {
+                Timber.e("Something went wrong while fetching the representatives: $e")
+            }
         }
     }
 

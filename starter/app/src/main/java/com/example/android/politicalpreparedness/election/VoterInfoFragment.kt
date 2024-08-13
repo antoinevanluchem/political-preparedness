@@ -80,7 +80,7 @@ class VoterInfoFragment : Fragment() {
             viewModel.voterInfo.value!!.state!!.first().electionAdministrationBody
 
         if (electionAdministrationBody.electionInfoUrl == null) {
-            Timber.e("Not showing stateLocations, because electionAdministrationBody.electionInfoUrl == null")
+            Timber.v("Not showing stateLocations, because electionAdministrationBody.electionInfoUrl == null")
         } else {
             binding.stateLocations.visibility = VISIBLE
             binding.stateLocations.setOnClickListener { setIntent(electionAdministrationBody.electionInfoUrl) }
@@ -88,7 +88,7 @@ class VoterInfoFragment : Fragment() {
 
 
         if (electionAdministrationBody.ballotInfoUrl == null) {
-            Timber.e("Not showing stateBallot, because electionAdministrationBody.electionInfoUrl == null")
+            Timber.v("Not showing stateBallot, because electionAdministrationBody.electionInfoUrl == null")
         } else {
             binding.stateBallot.visibility = VISIBLE
             binding.stateBallot.setOnClickListener { setIntent(electionAdministrationBody.ballotInfoUrl) }
