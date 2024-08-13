@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
+        <variable
+            name="states"
+            type="java.util.List&lt;String&gt;" />
 
     </data>
     <!-- TODO: Add motion scene to hide form on vertical scroll. -->
@@ -68,7 +71,9 @@
             app:layout_constraintBottom_toBottomOf="@id/city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/city"
-            app:layout_constraintTop_toTopOf="@id/city" />
+            app:layout_constraintTop_toTopOf="@id/city"
+            app:stateValue="@{viewModel.address.state}"
+            />
 
         <EditText
             android:id="@+id/zip"

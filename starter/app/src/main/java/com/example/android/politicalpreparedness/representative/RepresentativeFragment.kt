@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
@@ -15,6 +16,7 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.utils.LocationPermissionHandler
 import com.example.android.politicalpreparedness.representative.utils.LocationServicesHandler
+import com.example.android.politicalpreparedness.representative.utils.STATES
 import com.example.android.politicalpreparedness.representative.utils.getAddress
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -47,6 +49,11 @@ class DetailFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding = FragmentRepresentativeBinding.inflate(inflater)
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, STATES)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.state.adapter = adapter
+
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
